@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="TechdaysDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TechdaysDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="24,17,0,28">
+            <TextBlock Text="Techdays Demo" Style="{ThemeResource TitleTextBlockStyle}" Typography.Capitals="SmallCaps"/>
+            <TextBlock Text="colors" Margin="0,0,0,0" Style="{ThemeResource HeaderTextBlockStyle}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="24,-24,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Red" PlaceholderText="Red" Margin="0,12,6,12"  />
+            <TextBox x:Name="Green" Grid.Column="1" PlaceholderText="Green" Margin="6,12,6,12"  />
+            <TextBox x:Name="Blue" Grid.Column="2" PlaceholderText="Blue" Margin="6,12,0,12"  />
+        </Grid>
+
+        <Border x:Name="Color" Grid.Row="2" Height="24" />
+
+        <Button x:Name="SearchButton" Grid.Row="3" Content="Search" Margin="24,0,24,0" HorizontalAlignment="Stretch" />
+
+        <!--TODO: Content should be placed within the following grid-->
+        <ListView x:Name="Images" Grid.Row="4" Margin="24,0,24,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding}" Height="200" Width="200" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapGrid MaximumRowsOrColumns="2" ItemWidth="170" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+    </Grid>
+</Page>
