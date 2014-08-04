@@ -104,7 +104,7 @@ namespace TechdaysDemo.ViewModels
                 return Observable.Return(new string[0]);
             }
 
-            string url = string.Format("http://labs.tineye.com/rest/?method=flickr_color_search&limit=73&offset=0&colors[0]={0:x2}{1:x2}{2:x2}&weights[0]=1", color.Color.R, color.Color.G, color.Color.B);
+            string url = string.Format("http://labs.tineye.com/multicolr/rest/color_search/?limit=73&offset=0&colors[0]={0:x2}{1:x2}{2:x2}&weights[0]=1", color.Color.R, color.Color.G, color.Color.B);
 
             HttpClient http = new HttpClient();
 
@@ -112,7 +112,7 @@ namespace TechdaysDemo.ViewModels
                 .ToObservable()
                 .Catch<string, Exception>(e => Observable.Empty<string>())
                 .Select(str => JsonConvert.DeserializeObject<ImageList>(str).result)
-                .Select(images => images.Select(image => "http://img.tineye.com/flickr-images/?filepath=labs-flickr/" + image.filepath));
+                .Select(images => images.Select(image => "http://img.tineye.com/flickr-images/?filepath=labs-flickr-public/images/" + image.filepath));
         }
     }
 }
