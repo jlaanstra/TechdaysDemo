@@ -34,20 +34,11 @@ namespace TechdaysDemo.ViewModels
                     .ToProperty(this, x => x.FinalColor, out this.color));
 
                 // create the command
-                d(this.SearchCommand = ReactiveCommand.Create(
+                d(this.SearchCommand = ReactiveCommand.CreateAsyncObservable(
                     whenAnyColorChanges.Select(x => x != null),
                     c => this.GetImages(c as SolidColorBrush).Select(e => e)));
 
                 // subscribe to the result of the command
-                // we can't do ToProperty cause WinRT does not like changing collections
-                //d(this.SearchCommand.Subscribe(ie =>
-                //{
-                //    using (this.Images.SuppressChangeNotifications())
-                //    {
-                //        this.images.Clear();
-                //        this.Images.AddRange(ie);
-                //    }
-                //}));
                 d(this.SearchCommand.Select(ie => new ReactiveList<string>(ie)).ToProperty(this, x => x.Images, out this.images));
             });            
         }
@@ -88,12 +79,6 @@ namespace TechdaysDemo.ViewModels
         {
             get { return color.Value; }
         }
-
-        //private ReactiveList<string> images = new ReactiveList<string>();
-        //public ReactiveList<string> Images
-        //{
-        //    get { return images; }
-        //}
 
         private ObservableAsPropertyHelper<ReactiveList<string>> images;
         public ReactiveList<string> Images
